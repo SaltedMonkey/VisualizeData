@@ -58,4 +58,4 @@ if(process.env.PORT !== undefined){
     console.log(port);
     
 }
-app.listen(3000, "192.168.5.20", () => console.log("App available on http://localhost:" + 3000));
+app.listen(3000, () => console.log("App available on http://localhost:" + 3000));
