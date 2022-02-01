@@ -7,14 +7,13 @@ const ObjectsToCsv = require("objects-to-csv");
 const host = "192.168.5.102";
 port = "1883";
 
-const connectUrl = host +":"+port;
-
+const connectUrl = "http://"+host +":"+port;
 
  
 const client = mqtt.connect(connectUrl, {
     clean:true,
-    username: process.argv[2] || "",
-    password: process.argv[3] || ""
+    username: process.argv[2] != undefined? process.argv[2]: "",
+    password: process.argv[3] != undefined? process.argv[3]: ""
 });
 
 

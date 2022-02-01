@@ -18,7 +18,11 @@ d3.csv("list.csv",
 
   // When reading the csv, I must format variables:
   function(d){
-    return { date : d3.timeParse("%Y-%m-%d")(d.time), value : d.value }
+    var datum = new Date(d.time);
+    var temp = datum.getMonth() <9 ? 0: "";
+    return { 
+      date : datum.getFullYear()+"-" +temp+ (datum.getMonth()+1) +"-"+ datum.getDate(), 
+      value : d.value }
   }).then(
 
   // Now I can use this dataset:
@@ -26,7 +30,7 @@ d3.csv("list.csv",
 
     // Add X axis --> it is a date format
     const x = d3.scaleTime()
-      .domain(d3.extent(data, function(d) { return d.date; }))
+      .domain(d3.extent(data, function(d) { console.log(d.date);return d.date; }))
       .range([ 0, width ]);
     svg.append("g")
       .attr("transform", `translate(0, ${height})`)
@@ -34,6 +38,8 @@ d3.csv("list.csv",
 
     // Max value observed:
     const max = d3.max(data, function(d) { return +d.value; })
+
+    
 
     // Add Y axis
     const y = d3.scaleLinear()
@@ -66,8 +72,8 @@ d3.csv("list.csv",
       .attr("stroke", "url(#line-gradient)" )
       .attr("stroke-width", 2)
       .attr("d", d3.line()
-        .x(function(d) { return x(d.date) })
-        .y(function(d) { return y(d.value) })
+        .x(function(datapointfx) { return x(datapointfx.date) })
+        .y(function(datapointfy) { return y(datapointfy.value) })
     )
 
 })
