@@ -19,9 +19,8 @@ d3.csv("list.csv",
   // When reading the csv, I must format variables:
   function(d){
     var datum = new Date(d.time);
-    var temp = datum.getMonth() <9 ? 0: "";
     return { 
-      date : datum.getFullYear()+"-" +temp+ (datum.getMonth()+1) +"-"+ datum.getDate(), 
+      date : d3.timeFormat("%H:%M:%S")(datum), 
       value : d.value }
   }).then(
 
